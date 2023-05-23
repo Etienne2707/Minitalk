@@ -1,22 +1,24 @@
-#include <stdio.h>
 #include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
 
 int	ft_atoi(char *str2)
 {
-	int i;
-	int sign;
-	int result;
+	int	i;
+	int	sign;
+	int	result;
+
 	i = 0;
 	sign = 1;
 	result = 0;
-	while ((str2[i] >= 9 && str2[i] <= 13 )|| str2[i] == 32)
+	while ((str2[i] >= 9 && str2[i] <= 13) || str2[i] == 32)
 		i++;
 	if (str2[i] == '+')
 		i++;
 	else if (str2[i] == '-')
 	{
 		i++;
-		sign = sign * - 1;
+		sign = sign * -1;
 	}
 	while (str2[i] >= '0' && str2[i] <= '9' && str2[i] != '\0')
 	{
@@ -26,7 +28,6 @@ int	ft_atoi(char *str2)
 	}
 	return (result * sign);
 }
-
 
 void	ft_send_bits(int pid, char i)
 {
@@ -46,13 +47,15 @@ void	ft_send_bits(int pid, char i)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
-	int	i;
+	int pid;
+	int i;
 
 	i = 0;
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
+		if (pid < 0)
+			return (0);
 		while (argv[2][i] != '\0')
 		{
 			ft_send_bits(pid, argv[2][i]);
